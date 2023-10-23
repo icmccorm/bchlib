@@ -29,7 +29,14 @@ impl BCH {
         err
     }
 }
-
+ 
+impl Drop for BCH {
+    fn drop(&mut self) {
+        unsafe {
+            ffi::free_bch(&mut self.0);
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {
